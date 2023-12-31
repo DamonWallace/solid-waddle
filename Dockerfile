@@ -35,19 +35,8 @@ RUN rm /etc/nginx/sites-enabled/default
 # Copy custom NGINX configuration
 COPY conf/nginx/nginx-site.conf /etc/nginx/sites-enabled/nginx-site.conf
 
-# Image config
-ENV SKIP_COMPOSER 1
-ENV WEBROOT /var/www/html/public
-ENV PHP_ERRORS_STDERR 1
-ENV RUN_SCRIPTS 1
-ENV REAL_IP_HEADER 1
-ENV APP_ENV production
-ENV APP_DEBUG false
-ENV LOG_CHANNEL stderr
-ENV COMPOSER_ALLOW_SUPERUSER 1
-
 # Expose the port
 EXPOSE 80
 
 # Start PHP-FPM and NGINX
-CMD service nginx start && php-fpm
+CMD service php8.1-fpm start && service nginx start && tail -f /dev/null
